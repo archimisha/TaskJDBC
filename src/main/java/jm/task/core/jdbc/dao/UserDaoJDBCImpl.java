@@ -14,7 +14,7 @@ public class UserDaoJDBCImpl implements UserDao {
     private Statement statement;
     private ResultSet result;
     private Connection con = util.getCon();
-    private int counter = 1;
+
 
     public UserDaoJDBCImpl() {
 
@@ -46,13 +46,12 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String insertUser = "INSERT INTO Users VALUES(?, ?, ?, ?)";
+        String insertUser = "INSERT INTO Users (name, lastName, age) VALUES(?, ?, ?)";
         try {
             preStatement = con.prepareStatement(insertUser);
-            preStatement.setLong(1, counter++);
-            preStatement.setString(2, name);
-            preStatement.setString(3, lastName);
-            preStatement.setByte(4, age);
+            preStatement.setString(1, name);
+            preStatement.setString(2, lastName);
+            preStatement.setByte(3, age);
 
             preStatement.execute();
         } catch (SQLException throwables) {
